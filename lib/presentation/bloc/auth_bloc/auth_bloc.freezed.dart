@@ -32,7 +32,8 @@ mixin _$AuthEvent {
             List<String?> workingDays)
         register,
     required TResult Function(String email, String password) login,
-    required TResult Function(String media, String caption) createPost,
+    required TResult Function(String media, String mediaType, String caption)
+        createPost,
     required TResult Function(
             String photo,
             String fullName,
@@ -61,7 +62,8 @@ mixin _$AuthEvent {
             List<String?> workingDays)?
         register,
     TResult? Function(String email, String password)? login,
-    TResult? Function(String media, String caption)? createPost,
+    TResult? Function(String media, String mediaType, String caption)?
+        createPost,
     TResult? Function(
             String photo,
             String fullName,
@@ -90,7 +92,8 @@ mixin _$AuthEvent {
             List<String?> workingDays)?
         register,
     TResult Function(String email, String password)? login,
-    TResult Function(String media, String caption)? createPost,
+    TResult Function(String media, String mediaType, String caption)?
+        createPost,
     TResult Function(
             String photo,
             String fullName,
@@ -203,7 +206,8 @@ class _$AuthInitImpl implements _AuthInit {
             List<String?> workingDays)
         register,
     required TResult Function(String email, String password) login,
-    required TResult Function(String media, String caption) createPost,
+    required TResult Function(String media, String mediaType, String caption)
+        createPost,
     required TResult Function(
             String photo,
             String fullName,
@@ -235,7 +239,8 @@ class _$AuthInitImpl implements _AuthInit {
             List<String?> workingDays)?
         register,
     TResult? Function(String email, String password)? login,
-    TResult? Function(String media, String caption)? createPost,
+    TResult? Function(String media, String mediaType, String caption)?
+        createPost,
     TResult? Function(
             String photo,
             String fullName,
@@ -267,7 +272,8 @@ class _$AuthInitImpl implements _AuthInit {
             List<String?> workingDays)?
         register,
     TResult Function(String email, String password)? login,
-    TResult Function(String media, String caption)? createPost,
+    TResult Function(String media, String mediaType, String caption)?
+        createPost,
     TResult Function(
             String photo,
             String fullName,
@@ -524,7 +530,8 @@ class _$AuthRegisterImpl implements _AuthRegister {
             List<String?> workingDays)
         register,
     required TResult Function(String email, String password) login,
-    required TResult Function(String media, String caption) createPost,
+    required TResult Function(String media, String mediaType, String caption)
+        createPost,
     required TResult Function(
             String photo,
             String fullName,
@@ -557,7 +564,8 @@ class _$AuthRegisterImpl implements _AuthRegister {
             List<String?> workingDays)?
         register,
     TResult? Function(String email, String password)? login,
-    TResult? Function(String media, String caption)? createPost,
+    TResult? Function(String media, String mediaType, String caption)?
+        createPost,
     TResult? Function(
             String photo,
             String fullName,
@@ -590,7 +598,8 @@ class _$AuthRegisterImpl implements _AuthRegister {
             List<String?> workingDays)?
         register,
     TResult Function(String email, String password)? login,
-    TResult Function(String media, String caption)? createPost,
+    TResult Function(String media, String mediaType, String caption)?
+        createPost,
     TResult Function(
             String photo,
             String fullName,
@@ -766,7 +775,8 @@ class _$AuthLoginImpl implements _AuthLogin {
             List<String?> workingDays)
         register,
     required TResult Function(String email, String password) login,
-    required TResult Function(String media, String caption) createPost,
+    required TResult Function(String media, String mediaType, String caption)
+        createPost,
     required TResult Function(
             String photo,
             String fullName,
@@ -798,7 +808,8 @@ class _$AuthLoginImpl implements _AuthLogin {
             List<String?> workingDays)?
         register,
     TResult? Function(String email, String password)? login,
-    TResult? Function(String media, String caption)? createPost,
+    TResult? Function(String media, String mediaType, String caption)?
+        createPost,
     TResult? Function(
             String photo,
             String fullName,
@@ -830,7 +841,8 @@ class _$AuthLoginImpl implements _AuthLogin {
             List<String?> workingDays)?
         register,
     TResult Function(String email, String password)? login,
-    TResult Function(String media, String caption)? createPost,
+    TResult Function(String media, String mediaType, String caption)?
+        createPost,
     TResult Function(
             String photo,
             String fullName,
@@ -907,7 +919,7 @@ abstract class _$$AuthCreatePostImplCopyWith<$Res> {
           $Res Function(_$AuthCreatePostImpl) then) =
       __$$AuthCreatePostImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({String media, String caption});
+  $Res call({String media, String mediaType, String caption});
 }
 
 /// @nodoc
@@ -922,12 +934,17 @@ class __$$AuthCreatePostImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? media = null,
+    Object? mediaType = null,
     Object? caption = null,
   }) {
     return _then(_$AuthCreatePostImpl(
       null == media
           ? _value.media
           : media // ignore: cast_nullable_to_non_nullable
+              as String,
+      null == mediaType
+          ? _value.mediaType
+          : mediaType // ignore: cast_nullable_to_non_nullable
               as String,
       null == caption
           ? _value.caption
@@ -940,16 +957,18 @@ class __$$AuthCreatePostImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$AuthCreatePostImpl implements _AuthCreatePost {
-  const _$AuthCreatePostImpl(this.media, this.caption);
+  const _$AuthCreatePostImpl(this.media, this.mediaType, this.caption);
 
   @override
   final String media;
+  @override
+  final String mediaType;
   @override
   final String caption;
 
   @override
   String toString() {
-    return 'AuthEvent.createPost(media: $media, caption: $caption)';
+    return 'AuthEvent.createPost(media: $media, mediaType: $mediaType, caption: $caption)';
   }
 
   @override
@@ -958,11 +977,13 @@ class _$AuthCreatePostImpl implements _AuthCreatePost {
         (other.runtimeType == runtimeType &&
             other is _$AuthCreatePostImpl &&
             (identical(other.media, media) || other.media == media) &&
+            (identical(other.mediaType, mediaType) ||
+                other.mediaType == mediaType) &&
             (identical(other.caption, caption) || other.caption == caption));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, media, caption);
+  int get hashCode => Object.hash(runtimeType, media, mediaType, caption);
 
   @JsonKey(ignore: true)
   @override
@@ -988,7 +1009,8 @@ class _$AuthCreatePostImpl implements _AuthCreatePost {
             List<String?> workingDays)
         register,
     required TResult Function(String email, String password) login,
-    required TResult Function(String media, String caption) createPost,
+    required TResult Function(String media, String mediaType, String caption)
+        createPost,
     required TResult Function(
             String photo,
             String fullName,
@@ -1000,7 +1022,7 @@ class _$AuthCreatePostImpl implements _AuthCreatePost {
             List<String?> workingDays)
         editProfile,
   }) {
-    return createPost(media, caption);
+    return createPost(media, mediaType, caption);
   }
 
   @override
@@ -1020,7 +1042,8 @@ class _$AuthCreatePostImpl implements _AuthCreatePost {
             List<String?> workingDays)?
         register,
     TResult? Function(String email, String password)? login,
-    TResult? Function(String media, String caption)? createPost,
+    TResult? Function(String media, String mediaType, String caption)?
+        createPost,
     TResult? Function(
             String photo,
             String fullName,
@@ -1032,7 +1055,7 @@ class _$AuthCreatePostImpl implements _AuthCreatePost {
             List<String?> workingDays)?
         editProfile,
   }) {
-    return createPost?.call(media, caption);
+    return createPost?.call(media, mediaType, caption);
   }
 
   @override
@@ -1052,7 +1075,8 @@ class _$AuthCreatePostImpl implements _AuthCreatePost {
             List<String?> workingDays)?
         register,
     TResult Function(String email, String password)? login,
-    TResult Function(String media, String caption)? createPost,
+    TResult Function(String media, String mediaType, String caption)?
+        createPost,
     TResult Function(
             String photo,
             String fullName,
@@ -1066,7 +1090,7 @@ class _$AuthCreatePostImpl implements _AuthCreatePost {
     required TResult orElse(),
   }) {
     if (createPost != null) {
-      return createPost(media, caption);
+      return createPost(media, mediaType, caption);
     }
     return orElse();
   }
@@ -1113,10 +1137,12 @@ class _$AuthCreatePostImpl implements _AuthCreatePost {
 }
 
 abstract class _AuthCreatePost implements AuthEvent {
-  const factory _AuthCreatePost(final String media, final String caption) =
+  const factory _AuthCreatePost(
+          final String media, final String mediaType, final String caption) =
       _$AuthCreatePostImpl;
 
   String get media;
+  String get mediaType;
   String get caption;
   @JsonKey(ignore: true)
   _$$AuthCreatePostImplCopyWith<_$AuthCreatePostImpl> get copyWith =>
@@ -1293,7 +1319,8 @@ class _$ProfileEditImpl implements _ProfileEdit {
             List<String?> workingDays)
         register,
     required TResult Function(String email, String password) login,
-    required TResult Function(String media, String caption) createPost,
+    required TResult Function(String media, String mediaType, String caption)
+        createPost,
     required TResult Function(
             String photo,
             String fullName,
@@ -1326,7 +1353,8 @@ class _$ProfileEditImpl implements _ProfileEdit {
             List<String?> workingDays)?
         register,
     TResult? Function(String email, String password)? login,
-    TResult? Function(String media, String caption)? createPost,
+    TResult? Function(String media, String mediaType, String caption)?
+        createPost,
     TResult? Function(
             String photo,
             String fullName,
@@ -1359,7 +1387,8 @@ class _$ProfileEditImpl implements _ProfileEdit {
             List<String?> workingDays)?
         register,
     TResult Function(String email, String password)? login,
-    TResult Function(String media, String caption)? createPost,
+    TResult Function(String media, String mediaType, String caption)?
+        createPost,
     TResult Function(
             String photo,
             String fullName,

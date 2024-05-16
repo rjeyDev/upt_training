@@ -19,8 +19,10 @@ User _$UserFromJson(Map<String, dynamic> json) => User(
       experience: json['experience'] as String?,
       workingDays: (json['workingDays'] as List<dynamic>?)?.map((e) => e as String?).toList(),
       posts: (json['posts'] as List<dynamic>?)?.map((e) {
-        if (e == null) return null;
-        var castedE = e.cast<String, dynamic>();
+        if (e == null) {
+          return null;
+        }
+        Map<String, dynamic> castedE = e.cast<String, dynamic>();
         return Post.fromJson(castedE);
       }).toList(),
     );

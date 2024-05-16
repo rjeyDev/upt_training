@@ -19,7 +19,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         register: (email, password, photo, fullName, description, country, age, language, experience, workingDays) =>
             _register(emit, email, password, photo, fullName, description, country, age, language, experience, workingDays),
         login: (email, password) => _login(emit, email, password),
-        createPost: (media, caption) => _createPost(emit, media, caption),
+        createPost: (media, mediaType, caption) => _createPost(emit, media, mediaType, caption),
         editProfile: (photo, fullName, description, country, age, language, experience, workingDays) =>
             _editProfile(emit, photo, fullName, description, country, age, language, experience, workingDays),
       );
@@ -98,13 +98,13 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     emit(state.copyWith(action: AuthAction.loginError));
   }
 
-  _createPost(Emitter emit, String media, String caption) async {
+  _createPost(Emitter emit, String media, String mediaType, String caption) async {
     emit(state.copyWith(action: AuthAction.loginLoading));
     int lastPostId = 0;
     if (state.user?.posts != null && state.user!.posts!.isNotEmpty) {
       lastPostId = state.user?.posts?.last?.id ?? 0;
     }
-    Post post = Post(id: lastPostId + 1, media: media, caption: caption);
+    Post post = Post(id: lastPostId + 1, media: media, mediaType: mediaType, caption: caption);
     User user = state.user!;
     user.posts?.add(post);
     state.users?.forEach((element) {

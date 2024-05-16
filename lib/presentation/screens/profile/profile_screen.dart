@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:upt_training/data/datasource/remote/jwt.dart';
 import 'package:upt_training/ui_kit/app_text_style.dart';
+import 'package:video_player/video_player.dart';
 
 import '../../../data/datasource/local/service_locator/service_locator.dart';
 import '../../../domain/models/user.dart';
@@ -24,10 +25,20 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
+  List<VideoPlayerController> videoControllers = [];
   User? user;
   @override
   void initState() {
     super.initState();
+    context.read<AuthBloc>().state.user?.posts?.forEach((post) {
+      VideoPlayerController videoController = VideoPlayerController.file(File(post?.media ?? ''));
+      if (post?.mediaType == 'video') {
+        videoController.initialize().then(
+              (value) => setState(() {}),
+            );
+      }
+      videoControllers.add(videoController);
+    });
     if (widget.isMyProfile) {
       user = context.read<AuthBloc>().state.user;
     } else {
@@ -39,6 +50,18 @@ class _ProfileScreenState extends State<ProfileScreen> {
   Widget build(BuildContext context) {
     return BlocConsumer<AuthBloc, AuthState>(
       listener: (context, state) {
+        if (state.action == AuthAction.createPost) {
+          videoControllers.clear();
+          state.user?.posts?.forEach((post) {
+            VideoPlayerController videoController = VideoPlayerController.file(File(post?.media ?? ''));
+            if (post?.mediaType == 'video') {
+              videoController.initialize().then(
+                    (value) => setState(() {}),
+                  );
+            }
+            videoControllers.add(videoController);
+          });
+        }
         if (widget.isMyProfile && state.action == AuthAction.editProfile) {
           user = state.user;
         }
@@ -205,11 +228,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 ),
                 itemCount: user?.posts?.length ?? 0,
                 itemBuilder: (BuildContext context, int index) {
-                  return Image.file(
-                    File(user?.posts?[index]?.media ?? ''),
-                    fit: BoxFit.cover,
-                    height: MediaQuery.of(context).size.width / 3,
-                  );
+                  return user?.posts?[index]?.mediaType == 'video'
+                      ? SizedBox(
+                          height: MediaQuery.of(context).size.width / 3,
+                          width: MediaQuery.of(context).size.width / 3,
+                          child: VideoPlayer(videoControllers[index]))
+                      : Image.file(
+                          File(user?.posts?[index]?.media ?? ''),
+                          fit: BoxFit.cover,
+                          height: MediaQuery.of(context).size.width / 3,
+                        );
                 },
               ),
             ],

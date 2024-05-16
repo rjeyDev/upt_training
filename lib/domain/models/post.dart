@@ -7,11 +7,13 @@ class Post {
   int? id;
   String? media;
   String? caption;
+  String? mediaType;
 
   Post({
     this.id,
     this.media,
     this.caption,
+    this.mediaType,
   });
 
   factory Post.fromJson(Map<String, dynamic> json) => _$PostFromJson(json);

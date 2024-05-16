@@ -1,16 +1,20 @@
 # upt_training
 
-A new Flutter project.
+#Requirements:
+ - Flutter SDK ^3.19
+ - Dart ^3.3.12
+ - Gradle ^7.5.1
+ - Kotlin ^1.6.21
 
-## Getting Started
+#First Run Guide:
+ - Run in terminal in project directory "flutter pub get"
+ - Then run "flutter run", better "flutter run --verbose" to see logs of running
+ - After 2 steps above application will launch automatically
 
-This project is a starting point for a Flutter application.
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+#Solutions:
+State management: bloc+freezed;
+Dependency Injection: get_it;
+JSON serialization/deserialization: json_serializable;
+Storing data in local storage: hive;
+Navigation: auto_route;
