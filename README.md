@@ -13,8 +13,8 @@
 
 
 #Solutions:
-State management: bloc+freezed;
-Dependency Injection: get_it;
-JSON serialization/deserialization: json_serializable;
-Storing data in local storage: hive;
-Navigation: auto_route;
+ - State management: bloc+freezed;
+ - Dependency Injection: get_it;
+ - JSON serialization/deserialization: json_serializable;
+ - Storing data in local storage: hive;
+ - Navigation: auto_route;
